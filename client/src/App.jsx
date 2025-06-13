@@ -6,11 +6,13 @@ import { Toaster } from "react-hot-toast";
 
 import LayoutLoader from "./components/layouts/Loading.jsx";
 import NotFound from "./pages/NotFound.jsx";
-
+import ProtectedRoutes from "./utils/ProtectedRoutes.jsx";
 // lazy loading of pages
 const Home = lazy(() => import("./pages/Home.jsx"));
 const Login = lazy(() => import("./pages/Login.jsx"));
 const Register = lazy(() => import("./pages/Register.jsx"));
+const StartExam = lazy(() => import("./pages/StartExam.jsx"));
+
 //const ProtectedRoutes = lazy(() => import("./utils/ProtectedRoutes.jsx"));
 
 // Admin Pages
@@ -29,16 +31,25 @@ const App = () => {
 			{/* loading screen in LayoutLoader */}
 			<Suspense fallback={<LayoutLoader />}>
 				<Routes>
-					<Route path="/" element={<Home />} />
+
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
 
+					
+					{/* Admin and Student Routes */}
+					<Route element={<ProtectedRoutes allowedRoles={["admin", "student"]} />}>
+					<Route path="/" element={<Home />} />
+					<Route path="/startexam/:examId" element={<StartExam />} />
+					</Route>
+
+
 					{/* Admin Routes */}
+					<Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
 					<Route path="/examcreate" element={<ExamCreate />} />
 					<Route path="/exams" element={<ExamList />} />
 					<Route path="/addquestions/:examId" element={<AddQuestions />} />
 					<Route path="/previewexam/:examId" element={<PreviewExam />} />
-
+					</Route>
 					{/* Not Found Route */}
 					<Route path="*" element={<NotFound />} />
 				</Routes>
