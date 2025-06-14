@@ -24,26 +24,34 @@ A full-stack web application for conducting online exams securely, with features
     - Backend: Node.js, Express.js, Mongoose
     - Database: MongoDB Atlas
     - Auth: JWT + Redux (or basic auth)
-
 ## Running Locally
 
- 1. Clone this repo
-`
-git clone https://github.com/yourusername/online-exam-portal.git
-cd online-exam-portal
-` 
- 2. Setup Client Side
- `
- cd client
- npm install
-  ` 
-3. Setup Server Side
- `
-cd server
+1. **Clone this repository**
+
+   ```bash
+   git clone https://github.com/yourusername/online-exam-portal.git
+   cd online-exam-portal
+   ```
+
+2. **Setup Client Side**
+
+   ```bash
+   cd client
    npm install
-    npm start
-    ` 
-    4. .env file in /server
-    `
-    MONGO_URL=
-    JWT_SECRET=
+   ```
+
+3. **Setup Server Side**
+
+   ```bash
+   cd ../server
+   npm install
+   npm start
+   ```
+
+4. **Create a `.env` file in `/server` directory with the following content:**
+
+   ```env
+   MONGO_URL=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
+
