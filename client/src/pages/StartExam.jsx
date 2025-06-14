@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import {useRef,useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
 const StartExam = () => {
 
 	const { userInfo } = useSelector((state) => state.auth);
@@ -14,10 +15,68 @@ const StartExam = () => {
 	const [answers, setAnswers] = useState({});
 	const [timer, setTimer] = useState(0); // in seconds
 	const [submitted, setSubmitted] = useState(false);
+	const tabSwitchRef = useRef(0); // holds actual count outside React state
+	const currentQuestion = questions[current];
+	// Prevent Right Click and other cheating prone keys
+	useEffect(() => {
+		const handleContextMenu = (e) => e.preventDefault();
+		const handleKeyDown = (e) => {
+			if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'c')) {
+				e.preventDefault();
+			}
+			if (e.key === 'F12') {
+				e.preventDefault();
+			}
+		};
+
+		document.addEventListener("contextmenu", handleContextMenu);
+		document.addEventListener("keydown", handleKeyDown);
+
+		return () => {
+			document.removeEventListener("contextmenu", handleContextMenu);
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, []);
+
+	// Handle Tab Switches
+	useEffect(() => {
+		const handleBlur = () => {
+			tabSwitchRef.current += 1;
+
+			if (tabSwitchRef.current >= 3) {
+				alert("Too many tab switches! Your exam will now be submitted.");
+				handleSubmit(); // Call your submission function
+			} else {
+				alert(
+					`Warning: You have switched tabs ${tabSwitchRef.current} time(s). After 3, your exam will be auto-submitted.`
+				);
+			}
+		};
+
+		window.addEventListener("blur", handleBlur);
+
+		return () => {
+			window.removeEventListener("blur", handleBlur);
+		};
+	}, []);
+
 
 	useEffect(() => {
-		const fetchData = async () => {
+		const checkSessionAndFetch = async () => {
 			try {
+				// Check session first
+				const sessionRes = await axios.post("/exam/checksession", {
+					studentId: userInfo._id,
+					examId,
+				});
+
+				if (sessionRes.data.alreadyStarted) {
+					alert("You have already started this exam. You cannot retake it.");
+					navigate("/"); // or home
+					return;
+				}
+
+				// If no session, fetch exam + questions
 				const examRes = await axios.get(`/admin/getexam/${examId}`);
 				setExam(examRes.data);
 
@@ -26,13 +85,23 @@ const StartExam = () => {
 
 				const durationInSeconds = examRes.data.duration * 60;
 				setTimer(durationInSeconds);
+
+				// Create the new session now
+				await axios.post("/exam/startsession", {
+					examId,
+					studentId: userInfo._id,
+					startTime: new Date(),
+					endTime: new Date(Date.now() + durationInSeconds * 1000),
+				});
 			} catch (err) {
-				console.error("Error loading exam", err);
+				console.error("Error checking session or fetching exam:", err);
 			}
 		};
 
-		fetchData();
+		checkSessionAndFetch();
 	}, [examId]);
+
+
 
 	// Countdown timer
 	useEffect(() => {
@@ -57,9 +126,6 @@ const StartExam = () => {
 	};
 	const handleSubmit = async () => {
 		setSubmitted(true);
-		console.log(examId);
-		console.log(userInfo._id);
-		console.log(answers);
 
 		try {
 			const res = await axios.post("/exam/submitexam", {
@@ -85,7 +151,8 @@ const StartExam = () => {
 
 	if (!exam || questions.length === 0) return <p className="text-center mt-10">Loading exam...</p>;
 
-	const currentQuestion = questions[current];
+
+
 
 	return (
 		<div className="max-w-3xl mx-auto mt-10 px-4">

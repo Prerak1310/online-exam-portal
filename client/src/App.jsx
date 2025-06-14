@@ -11,7 +11,7 @@ const Login = lazy(() => import("./pages/Login.jsx"));
 const Register = lazy(() => import("./pages/Register.jsx"));
 const StartExam = lazy(() => import("./pages/StartExam.jsx"));
 const ViewExams = lazy(() => import("./pages/ViewExams.jsx"));
-
+const Scores = lazy(() => import("./pages/Scores.jsx"));
 // Protected Routes
 const ProtectedRoutes = lazy(() => import("./utils/ProtectedRoutes.jsx"));
 
@@ -41,6 +41,7 @@ const App = () => {
 					<Route element={<ProtectedRoutes allowedRoles={["admin", "student"]} />}>
 					<Route path="/" element={<Home />} />
 					<Route path="/viewexams" element={<ViewExams />} />
+					<Route path="/scores" element={<Scores />} />
 					<Route path="/startexam/:examId" element={<StartExam />} />
 					</Route>
 
