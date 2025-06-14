@@ -31,16 +31,16 @@ A full-stack web application for conducting online exams securely, with features
     ```bash
     git clone https://github.com/yourusername/online-exam-portal.git
     cd online-exam-portal
-    ```
+    end 
     2. **Setup Client Side
     ```bash
     cd client
     npm install
-    ```
+    end 
     3. ** Setup Server Side
     ```bash
     cd server
     npm install
     npm start
-    ```
+    end 
     
