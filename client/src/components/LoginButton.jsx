@@ -1,44 +1,28 @@
-// src/pages/Home.jsx
+// src/components/LoginButton.jsx
 import React from "react";
-import { useSelector } from "react-redux";
-import Dropdown from "../components/DropDown/Dropdown";
-import LoginButton from "../components/LoginButton";
-import FeatureCard from "../components/FeatureCard";
+import { Link } from "react-router-dom";
 
-function Home() {
-  const { userInfo } = useSelector((state) => state.auth);
-
+function LoginButton() {
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4">
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">Welcome to the Exam Portal</h1>
-        {userInfo ? (
-          <Dropdown username={userInfo.name} />
-        ) : (
-          <LoginButton />
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        <FeatureCard
-          title="View Exams"
-          description="Browse all available exams you can take."
-          link="/exams"
-        />
-        <FeatureCard
-          title="View Scores"
-          description="Check your performance and scores."
-          link="/scores"
-        />
-        <FeatureCard
-          title="Upcoming Exams"
-          description="Get details about upcoming scheduled exams."
-          link="/upcoming"
-        />
-      </div>
-    </div>
+    <Link
+      to="/login"
+      className="mt-4 inline-flex items-center rounded border-0 bg-blue-100 px-3 py-1 text-base hover:bg-blue-200 focus:outline-none md:mt-0"
+    >
+      Login
+      <svg
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        className="ml-1 h-4 w-4"
+        viewBox="0 0 24 24"
+      >
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </Link>
   );
 }
 
-export default Home;
+export default LoginButton;
 

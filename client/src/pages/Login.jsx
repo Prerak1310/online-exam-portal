@@ -27,7 +27,6 @@ const Login = () => {
 				email,
 				password,
 			});
-
 			if (data.error) {
 				toast.error(data.error);
 			} else {

@@ -23,7 +23,7 @@ function Home() {
         <FeatureCard
           title="View Exams"
           description="Browse all available exams you can take."
-          link="/exams"
+          link="/viewexams"
         />
         <FeatureCard
           title="View Scores"
