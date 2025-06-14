@@ -20,27 +20,30 @@ A full-stack web application for conducting online exams securely, with features
     - Timer-based auto submission
 
 ## Tech Stack
-    - **Frontend**: React, Tailwind CSS, Axios, React Router
-    - **Backend**: Node.js, Express.js, Mongoose
-    - **Database**: MongoDB Atlas
-    - **Auth**: JWT + Redux (or basic auth)
+    - Frontend: React, Tailwind CSS, Axios, React Router
+    - Backend: Node.js, Express.js, Mongoose
+    - Database: MongoDB Atlas
+    - Auth: JWT + Redux (or basic auth)
 
 ## Running Locally
 
-    1. **Clone this repo**
-    ```bash
+    1. Clone this repo
+    `
     git clone https://github.com/yourusername/online-exam-portal.git
     cd online-exam-portal
-    end 
-    2. **Setup Client Side
-    ```bash
+    ` 
+    2. Setup Client Side
+    `
     cd client
     npm install
-    end 
-    3. ** Setup Server Side
-    ```bash
+    ` 
+    3. Setup Server Side
+    `
     cd server
     npm install
     npm start
-    end 
-    
+    ` 
+    4. .env file in /server
+    `
+    MONGO_URL=
+    JWT_SECRET=
