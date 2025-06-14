@@ -16,19 +16,31 @@ A full-stack web application for conducting online exams securely, with features
 
 ### Anti-Cheating (Basic)
 - Tab switch detection (auto-submits after 3 switches)
-- Disables right-click, Ctrl+U, Ctrl+C, Ctrl+S, and F12
-- Timer-based auto submission
+    - Disables right-click, Ctrl+U, Ctrl+C, Ctrl+S, and F12
+    - Timer-based auto submission
 
 ## Tech Stack
-- **Frontend**: React, Tailwind CSS, Axios, React Router
-- **Backend**: Node.js, Express.js, Mongoose
-- **Database**: MongoDB Atlas
-- **Auth**: JWT + Redux (or basic auth)
+    - **Frontend**: React, Tailwind CSS, Axios, React Router
+    - **Backend**: Node.js, Express.js, Mongoose
+    - **Database**: MongoDB Atlas
+    - **Auth**: JWT + Redux (or basic auth)
 
 ## Running Locally
 
-1. **Clone this repo**
-   ```bash
-   git clone https://github.com/yourusername/online-exam-portal.git
-   cd online-exam-portal
-
+    1. **Clone this repo**
+    ```bash
+    git clone https://github.com/yourusername/online-exam-portal.git
+    cd online-exam-portal
+    ```
+    2. **Setup Client Side
+    ```bash
+    cd client
+    npm install
+    ```
+    3. ** Setup Server Side
+    ```bash
+    cd server
+    npm install
+    npm start
+    ```
+    
