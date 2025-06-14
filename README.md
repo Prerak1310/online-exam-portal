@@ -27,20 +27,20 @@ A full-stack web application for conducting online exams securely, with features
 
 ## Running Locally
 
-    1. Clone this repo
-    `
-    git clone https://github.com/yourusername/online-exam-portal.git
-    cd online-exam-portal
-    ` 
-    2. Setup Client Side
-    `
-    cd client
-    npm install
-    ` 
-    3. Setup Server Side
-    `
-    cd server
-    npm install
+ 1. Clone this repo
+`
+git clone https://github.com/yourusername/online-exam-portal.git
+cd online-exam-portal
+` 
+ 2. Setup Client Side
+ `
+ cd client
+ npm install
+  ` 
+3. Setup Server Side
+ `
+cd server
+   npm install
     npm start
     ` 
     4. .env file in /server
