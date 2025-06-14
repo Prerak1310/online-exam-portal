@@ -57,6 +57,9 @@ const StartExam = () => {
 	};
 	const handleSubmit = async () => {
 		setSubmitted(true);
+		console.log(examId);
+		console.log(userInfo._id);
+		console.log(answers);
 
 		try {
 			const res = await axios.post("/exam/submitexam", {
